@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mete & Sude - Dokuz Beyaz Gül Masalı</title>
+    <style>
+        :root {
+            --primary-color: #8b263e;
+            --secondary-color: #d4a373;
+            --bg-color: #0f0c20;
+            --card-bg: rgba(255, 255, 255, 0.07);
+            --text-color: #fefae0;
+            --accent-gold: #f4d06f;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Georgia', 'Times New Roman', serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0c20 0%, #1a102f 50%, #2b102c 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 700px;
+            width: 100%;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            position: relative;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+        }
+
+        .header h1 {
+            color: var(--accent-gold);
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .header p {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            font-style: italic;
+        }
+
+        .story-box {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            text-align: justify;
+        }
+
+        .quote-box {
+            background: rgba(212, 163, 115, 0.15);
+            border-left: 4px solid var(--accent-gold);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 10px 10px 0;
+            font-style: italic;
+            color: #fff;
+        }
+
+        .choices {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #8b263e, #aa3855);
+            color: white;
+            border: none;
+            padding: 16px 20px;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+            background: linear-gradient(45deg, #aa3855, #c94a6e);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 38, 62, 0.4);
+        }
+
+        .btn::after {
+            content: '➔';
+            font-size: 1.2rem;
+            color: var(--accent-gold);
+        }
+
+        .restart-btn {
+            background: transparent;
+            border: 1px solid var(--secondary-color);
+            color: var(--secondary-color);
+            margin-top: 25px;
+            text-align: center;
+            justify-content: center;
+        }
+
+        .restart-btn::after {
+            content: '';
+        }
+
+        .restart-btn:hover {
+            background: var(--secondary-color);
+            color: #0f0c20;
+        }
+
+        .cat-icon {
+            font-size: 1.5rem;
+            margin-right: 8px;
+        }
+
+        .rose-icon {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 22px;
+            }
+            .header h1 {
+                font-size: 1.4rem;
+            }
+            .story-box {
+                font-size: 1rem;
+            }
+            .btn {
+                font-size: 0.95rem;
+                padding: 14px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <span class="rose-icon">🌹</span>
+        <h1>Dokuz Beyaz Gül</h1>
+        <p>Mete & Sude'nin Sonsuz Masalı</p>
+    </div>
+
+    <div id="story" class="story-box">
+        <!-- Hikaye metni buraya dinamik dolacak -->
+    </div>
+
+    <div id="choices" class="choices">
+        <!-- Seçenekler buraya gelecek -->
+    </div>
+</div>
+
+<script>
+    const storyData = {
+        start: {
+            text: `Aralarında aşılması zor devasa mesafeler, karlı dağlar ve uçsuz bucaksız yollar olan iki farklı krallık vardı. Prens Mete, Prenses Sude’nin gözlerindeki tek bir tebessüm için günlerce yol alır, her türlü yorgunluğa katlanırdı.<br><br>
+            Bir sabah, gün henüz doğarken Mete, Sude’nin kapısına mis kokulu <b>dokuz adet bembeyaz gül</b> bıraktı. İçlerinden sekizi taptaze ve canlıydı; ancak dokuzuncusu özenle yapılmış, hiç solmayacak kumaştan büyülü bir güldü.<br>
+            <div class="quote-box">"Son gül solana kadar seni seveceğim..."</div>
+            Sude notu okuduğunda gözleri doldu, kalbi sıcacık oldu. Fakat tam o anlarda, dalgın ve yorgun olan Mete, istemeden Sude’yi incitecek bir söz söyledi. Kötü bir niyeti yoktu ama sarf ettiği o cümle Sude’nin kalbini kırdı. Mete yaptığı hatayı anlayıp pişmanlıkla donakaldı.<br><br>
+            <b>Sude şimdi ne yapacak?</b>`,
+            choices: [
+                { text: "Sude odasına çekilip yalnız kalmak istesin.", target: "pathA" },
+                { text: "Sude, 'Gülün solmayacağını bana kanıtlaman gerek!' diyerek Mete'ye bir sınav versin.", target: "pathB" }
+            ]
+        },
+
+        // A YOLU (Oda ve Oscar)
+        pathA: {
+            text: `Sude odasına çekilmiş, yatağının kenarında gözyaşı döküyordu. Başucundaki dokuz beyaz güle bakıp Mete’nin söylediklerine kırılıyordu.<br><br>
+            Tam o sırada, yıllardır yanında uslu uslu duran tüylü kedisi <b>Oscar</b> aniden esneyerek ayağa kalktı. Sude’nin kucağına zıpladı, patisini Sude’nin eline koydu ve pürüzsüz bir ses tonuyla konuşmaya başladı:<br><br>
+            <span class="cat-icon">🐱</span><i>"Hadi ama Prenses, gözyaşlarını sil! Biliyorsun ki mucizelere inananlar asla karanlıkta kalmaz. Mete kapının ardında mahvolmuş durumda. Başucundaki o dokuzuncu güle bak; adamın sevgisi gerçek. Onu affetmek için ne yapacaksın?"</i>`,
+            choices: [
+                { text: "Sude hemen kapıyı açıp Mete'ye sarılsın.", target: "finalA1" },
+                { text: "Sude, Oscar'ın fikrine uyup Mete'ye tatlı bir ceza kessin.", target: "finalA2" }
+            ]
+        },
+
+        finalA1: {
+            text: `Sude kapıyı araladığında Mete elinde gitarıyla bekliyordu. Usulca aralarındaki çift şarkısı çalmaya başladı:<br>
+            <div class="quote-box">"Gittim, bu sabah erken kalktım... Sana güller aldım, mutlu ol diye..."</div>
+            Mete gözlerinin içine bakarak, <i>"Bir kelimemle seni kırdım ama seni mutlu etmek için ömrüm boyunca çabalamaya hazırdım Sude,"</i> dedi.<br><br>
+            Sude daha fazla dayanamadı, Mete’ye sımsıkı sarıldı ve <b>"O dokuzuncu gülün hiç solmayacağını zaten biliyordum,"</b> diye fısıldadı. Sonsuz sevgi bir kez daha mesafeleri ve kırgınlıkları yendi. ❤️✨`,
+            choices: [
+                { text: "Masalı Baştan Oyna 🔄", target: "start", isRestart: true }
+            ]
+        },
+
+        finalA2: {
+            text: `Sude kapıyı açıp Mete’ye baktı ve ciddiyetle:<br>
+            <i>"Seni affederim ama bir şartla! Bu gece sarayın en yüksek kulesine çıkıp bana canlı canlı 'Sonsuz Ol' şarkısını söyleyeceksin ve birlikte yıldızları izleyeceğiz!"</i> dedi.<br><br>
+            Mete sevinçle bu şartı kabul etti. Gece boyu kulede el ele oturup şarkılar söylediler, yıldızları izlediler. Dokuzuncu beyaz gül ise başuçlarında parıldamaya devam etti. 🌟🌹`,
+            choices: [
+                { text: "Masalı Baştan Oyna 🔄", target: "start", isRestart: true }
+            ]
+        },
+
+        // B YOLU (Büyülü Orman)
+        pathB: {
+            text: `Sude’nin sözü üzerine Mete, hatasını telafi etmek ve sevgisinin büyüklüğünü göstermek için krallıklar arasındaki tehlikeli <b>Büyülü Orman</b>’a doğru yola çıktı.<br><br>
+            Yolda yürürken çalılıklardan sıçrayan konuşan kedi <b>Oscar</b> ile karşılaştı. Oscar bıyıklarını büküp, <i>"Hey Prens! Sude’nin kalbini geri kazanmak kolay değildir. Ama sana rehberlik edeceğim,"</i> dedi.<br><br>
+            İkili ormanın derinliklerine geldiğinde Mete bir karar vermek zorundaydı:`,
+            choices: [
+                { text: "Büyülü Göl'den dökülmeyen kristal su getirsin.", target: "finalB1" },
+                { text: "Hediye aramak yerine kendi sesini ve samimiyetini sunsun.", target: "finalB2" }
+            ]
+        },
+
+        finalB1: {
+            text: `Mete, Oscar’ın yardımıyla Büyülü Göl’e ulaştı ve gölün sonsuzluğu simgeleyen kristal suyunu bir şişeye koyup Sude’ye getirdi.<br><br>
+            Sude, Mete’nin kendisi için göze aldığı bu tehlikeli yolculuğu ve çabasını görünce gözleri yaşardı. Şişeyi alıp Mete’ye sarıldı:<br>
+            <div class="quote-box">"Bana hiçbir şey getirmene gerek yoktu Mete, senin bu çaban zaten sevgini kanıtlamaya yetti..."</div>
+            İkisi sarılırken dokuzuncu gül odada parıl parıl parıldıyordu. 💖`,
+            choices: [
+                { text: "Masalı Baştan Oyna 🔄", target: "start", isRestart: true }
+            ]
+        },
+
+        finalB2: {
+            text: `Ormanın ortasında Mete durdu ve Oscar’a baktı: <i>"Hediyelere gerek yok Oscar. Sude’ye olan sevgimi en iyi kendi kalbim anlatır."</i><br><br>
+            Sarayın balkonunun altına geri dönen Mete, gecenin sessizliğinde bağıra bağıra <b>"Sonsuz Ol"</b> şarkısını söylemeye başladı:<br>
+            <div class="quote-box">"Gittim, bu sabah erken kalktım... Sana güller aldım, mutlu ol diye..."</div>
+            Sude balkona çıkıp Mete’nin bu samimi çabasını gördüğünde tebessüm etti. Aşağı inip Mete’nin elini tuttu ve <b>"Şarkıyı harika söyledin, affedildin Prens!"</b> dedi. 🎶🌹`,
+            choices: [
+                { text: "Masalı Baştan Oyna 🔄", target: "start", isRestart: true }
+            ]
+        }
+    };
+
+    function renderNode(nodeKey) {
+        const node = storyData[nodeKey];
+        const storyEl = document.getElementById('story');
+        const choicesEl = document.getElementById('choices');
+
+        // Sayfa geçiş animasyonu
+        document.querySelector('.container').style.animation = 'none';
+        document.querySelector('.container').offsetHeight; // reflow
+        document.querySelector('.container').style.animation = 'fadeIn 0.6s ease-in-out';
+
+        storyEl.innerHTML = node.text;
+        choicesEl.innerHTML = '';
+
+        node.choices.forEach(choice => {
+            const btn = document.createElement('button');
+            btn.className = 'btn' + (choice.isRestart ? ' restart-btn' : '');
+            btn.innerHTML = choice.text;
+            btn.onclick = () => renderNode(choice.target);
+            choicesEl.appendChild(btn);
+        });
+    }
+
+    // İlk yüklemede hikayeyi başlat
+    renderNode('start');
+</script>
+
+</body>
+</html>
